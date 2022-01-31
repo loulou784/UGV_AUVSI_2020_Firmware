@@ -24,13 +24,17 @@
 
 #include "usart.h"
 #include "fatfs.h"
+#include "adc.h"
 #include "i2c.h"
 #include "main.h"
+#include "math.h"
 
 #define SENSORUPDATE_MS 20
 
 void ApplicationInit();
 void ApplicationTask();
+
+void setMotorSpeed(uint16_t u16LeftSpeed, uint8_t u8LeftDirection, uint16_t u16RightSpeed, uint8_t u8RightDirection);
 
 #ifdef __cplusplus
 }

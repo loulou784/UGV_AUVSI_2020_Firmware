@@ -15,24 +15,24 @@ typedef struct
 	uint8_t			UTC_Sec;
 	uint16_t		UTC_MicroSec;
 
-	float				Latitude;
+	float			Latitude;
 	double			LatitudeDecimal;
-	char				NS_Indicator;
-	float				Longitude;
+	char			NS_Indicator;
+	float			Longitude;
 	double			LongitudeDecimal;
-	char				EW_Indicator;
+	char			EW_Indicator;
 
 	uint8_t			PositionFixIndicator;
 	uint8_t			SatellitesUsed;
-	float				HDOP;
-	float				MSL_Altitude;
-	char				MSL_Units;
-	float				Geoid_Separation;
-	char				Geoid_Units;
+	float			HDOP;
+	float			MSL_Altitude;
+	char			MSL_Units;
+	float			Geoid_Separation;
+	char			Geoid_Units;
 
 	uint16_t		AgeofDiffCorr;
-	char				DiffRefStationID[4];
-	char				CheckSum[2];
+	char			DiffRefStationID[4];
+	char			CheckSum[2];
 
 }GPGGA_t;
 

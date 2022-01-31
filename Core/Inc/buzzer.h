@@ -12,11 +12,16 @@
 #include <stdbool.h>
 #include "tim.h"
 
-void tone(uint32_t u32Frequency, uint16_t u16Duration);
-void playSong(uint16_t *pMelody, uint8_t *pTone, uint16_t u16Length, float fSpeed);
+// Device Config
+#define PWM_TIMER    (&htim1)
+#define PWM_TIMER_CH (TIM_CHANNEL_1)
+#define DELAY_TIMER  (&htim16)
 
-void playSongIT(uint16_t *pMelody, uint8_t *pTone, uint16_t u16Len, float fSpeed);
-void stopSongIT();
-void enableRepeat(bool bOnRepeat);
+void buzzerSetEnable(bool bEnable);
+void buzzerPlaySong(uint16_t *pMelody, uint8_t *pTone, uint16_t u16Len, float fSpeed);
+void buzzerStopSong();
+void buzzerEnableRepeat(bool bOnRepeat);
+void buzzerPlayNoteITCallback();
+bool buzzerIsCurrentlyPlaying();
 
 #endif /* INC_BUZZER_H_ */

@@ -11,11 +11,45 @@
  extern "C" {
 #endif
 
-#define CMD_HEARTBEAT 0x04
-#define CMD_SPEED     0x06
-#define CMD_RAWSENSOR 0x08
-#define CMD_CONFIG    0x10
-#define CMD_READPARAM 0x12
+//CommManager available command
+#define BNO055DATA_CMD 0x01
+#define BNO055DATA_LEN (sizeof(oBNO055Data_t))
+
+#define CAMM8QDATA_CMD 0x02
+#define CAMM8QDATA_LEN (sizeof(oCAMM8QData_t))
+
+#define BME280DATA_CMD 0x03
+#define BME280DATA_LEN (sizeof(oBME280Data_t))
+
+#define RAWDATA_CMD 0x04
+#define RAWDATA_LEN (sizeof(oRawData_t))
+
+#define VEHICULEDATA_CMD 0x05
+#define VEHICULEDATA_LEN (sizeof(oVehiculeData_t))
+
+#define CONFIGDATA_CMD 0x06
+#define CONFIGDATA_LEN (sizeof(oConfig_t))
+
+#define HEARTBEAT_CMD 0x07
+#define HEARTBEAT_LEN (sizeof(oHeartbeatData_t))
+
+#define MOTORSPEED_CMD 0x07
+#define MOTORSPEED_LEN (sizeof(oMotorSpeedData_t))
+
+#define READPARAM_CMD 0x08
+#define READPARAM_LEN (0x00)
+
+#define SETMODE_CMD 0x09
+#define SETMODE_LEN (0x01)
+
+#define SETESTOP_CMD 0x0A
+#define SETESTOP_LEN (0x01)
+
+#define SETRESETALT_CMD 0x0B
+#define SETRESETALT_LEN (0x01)
+
+#define SETRELEASE_CMD 0x0C
+#define SETRELEASE_LEN (0x01)
 
 //A changer selon le VID du vehicule
 #define VID   	   0x01				// Le vehicule ID
@@ -25,6 +59,7 @@
 #include "stm32l4xx_hal.h"
 #include "usart.h"
 #include "DataTypes.h"
+#include "usbd_cdc_if.h"
 
 typedef struct {
 	uint8_t u8LastDataReceived[256];

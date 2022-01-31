@@ -67,6 +67,10 @@ void CommManagerSendPacket(uint8_t u8CMD, uint8_t* pu8Payload, uint16_t u16Paylo
 	u8Reply[5 + u16PayloadLength] = (uint8_t)u16CalculatedCRC16;			//CRC part 2
 
 	HAL_UART_Transmit(pUartHandle, u8Reply, 6 + u16PayloadLength, 25);
+	HAL_UART_Transmit(pUartHandle, '\n\r', 2, 25);
+
+	CDC_Transmit_FS(u8Reply, 6 + u16PayloadLength);
+	CDC_Transmit_FS('\n\r', 2);
 }
 
 /**
@@ -84,7 +88,7 @@ uint8_t CommManagerProcessBuffer(uint8_t* pu8Data, uint16_t* pu16Length) {
 
 	if(pu8Data == NULL || pu16Length == NULL) {
 			return 0;
-		}
+	}
 
 	switch(oCommManager.u8State) {
 		case FSM_STATE_HEADER:
@@ -212,21 +216,22 @@ void CommManagerEraseBufferPart(uint16_t u16FromIndex, uint16_t u16ToIndex) {
 }
 
 void CommManagerSendHeartbeat(uint32_t u32Time) {
-	uint8_t u8Time[4];
-	u8Time[0] = u32Time >> 3*8;
-	u8Time[1] = u32Time >> 2*8;
-	u8Time[2] = u32Time >> 1*8;
-	u8Time[3] = u32Time >> 0*8;
+	oHeartbeatData_t oHS;
+	oHS.u32Timestamp = u32Time;
 
-	CommManagerSendPacket(CMD_HEARTBEAT, &u8Time, sizeof(u8Time));
+	CommManagerSendPacket(HEARTBEAT_CMD, &oHS, sizeof(oHS));
 }
 
 void CommManagerSendRawSensorData(oRawData_t *rawData) {
-	CommManagerSendPacket(CMD_RAWSENSOR, (uint8_t *) rawData, sizeof(*rawData));
+	CommManagerSendPacket(RAWDATA_CMD, (uint8_t *) rawData, sizeof(*rawData));
 }
 
 void CommManagerSendConfigData(oConfig_t *configData) {
-	CommManagerSendPacket(CMD_CONFIG, (uint8_t *) configData, sizeof(*configData));
+	CommManagerSendPacket(CONFIGDATA_CMD, (uint8_t *) configData, sizeof(*configData));
+}
+
+CommManagerSendVehiculeData(oVehiculeData_t *vehiculeData) {
+	CommManagerSendPacket(VEHICULEDATA_CMD, (uint8_t *) vehiculeData, sizeof(*vehiculeData));
 }
 
 /**
