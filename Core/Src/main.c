@@ -115,27 +115,6 @@ int main(void)
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
 
-
-  // Test code to send AT Command to antenna... WIP
-  HAL_GPIO_WritePin(TELEM_MUX_GPIO_Port, TELEM_MUX_Pin, GPIO_PIN_RESET);
-  HAL_Delay(5000);
-
-  uint8_t u8Data = 0;
-  HAL_UART_Transmit(&huart2, "+++\n", 4, 100);
-  HAL_Delay(2000);
-  HAL_UART_Transmit(&huart2, "+++\n", 4, 100);
-  HAL_Delay(2000);
-  HAL_UART_Transmit(&huart2, "+++\n", 4, 100);
-  HAL_Delay(2000);
-  HAL_UART_Transmit(&huart2, "ATI\n", 4, 100);
-  HAL_Delay(2000);
-  CDC_Transmit_FS(&u8Data, 1);
-  while(1) {
-	  if(HAL_UART_Receive(&huart1, &u8Data, 1, 10) == HAL_OK) {
-		  CDC_Transmit_FS(&u8Data, 1);
-	  }
-  }
-
   ApplicationInit();
 
   /* USER CODE END 2 */
